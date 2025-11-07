@@ -1,0 +1,7 @@
+{
+    "parent": "block/torch",
+    "render_type": "minecraft:cutout",
+    "textures": {
+        "torch": "realistictorches:block/torch_unlit"
+    }
+}
