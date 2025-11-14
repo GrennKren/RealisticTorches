@@ -10,7 +10,7 @@ import com.chaosthedude.realistictorches.items.MatchboxItem;
 import com.chaosthedude.realistictorches.items.UnlitTorchItem;
 import com.chaosthedude.realistictorches.platform.Services;
 import com.chaosthedude.realistictorches.worldgen.TorchFeature;
-import com.mojang.serialization.MapCodec;
+import com.chaosthedude.realistictorches.worldgen.TorchReplaceProcessor;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import java.util.function.Supplier;
@@ -28,6 +29,14 @@ public class RealisticTorchesRegistry {
     public static Supplier<Feature<?>> TORCH_FEATURE;
     public static Supplier<PlacedFeature> TORCH_PLACED_FEATURE;
 
+    // Structure Processor for replacing vanilla torches
+    @SuppressWarnings("unchecked")
+    public static final Supplier<StructureProcessorType<TorchReplaceProcessor>> TORCH_REPLACE_PROCESSOR =
+            (Supplier<StructureProcessorType<TorchReplaceProcessor>>) (Object) Services.PLATFORM.register(
+                    Registries.STRUCTURE_PROCESSOR,
+                    "torch_replace",
+                    () -> (StructureProcessorType<TorchReplaceProcessor>) () -> TorchReplaceProcessor.CODEC
+            );
 
     // Blocks
     public static final Supplier<Block> TORCH_BLOCK = Services.PLATFORM.registerBlock(
@@ -78,6 +87,7 @@ public class RealisticTorchesRegistry {
      */
     public static void init() {
         // Trigger static initialization
+        Constants.LOGGER.info("Registering Structure Processor for torch replacement");
     }
 
     /**
@@ -89,12 +99,11 @@ public class RealisticTorchesRegistry {
 
     /**
      * Initialize world generation registries. This must be called after the
-     * worldgen registries are bootstrapped by the game.
+     * world generation registries are bootstrapped by the game.
      */
     public static void registerWorldGen() {
         Constants.LOGGER.info("Registering world generation features for Realistic Torches");
 
-        //// PINDAHKAN REGISTRASI WORLDGEN KE SINI
         TORCH_FEATURE = Services.PLATFORM.register(
                 Registries.FEATURE,
                 TorchFeature.NAME,
@@ -106,8 +115,7 @@ public class RealisticTorchesRegistry {
                 TorchFeature.NAME,
                 TorchFeature::createPlacedFeature
         );
-//
+
         Constants.LOGGER.info("World generation features registered");
     }
-
 }

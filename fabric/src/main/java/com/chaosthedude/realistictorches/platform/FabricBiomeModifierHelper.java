@@ -23,4 +23,9 @@ public class FabricBiomeModifierHelper implements IBiomeModifierHelper {
 
         Constants.LOGGER.info("Fabric biome modifications registered successfully");
     }
+
+    @Override
+    public void replaceTorchInStructures() {
+
+    }
 }

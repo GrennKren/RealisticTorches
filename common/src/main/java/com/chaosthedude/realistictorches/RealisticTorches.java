@@ -16,7 +16,5 @@ public class RealisticTorches {
 
         // Initialize registries
         RealisticTorchesRegistry.init();
-
-        Constants.LOGGER.info("Realistic Torches initialization complete");
     }
 }

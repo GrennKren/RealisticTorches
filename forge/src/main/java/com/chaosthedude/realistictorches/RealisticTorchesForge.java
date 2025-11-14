@@ -3,14 +3,24 @@ package com.chaosthedude.realistictorches;
 import com.chaosthedude.realistictorches.config.ConfigHandlerForge;
 import com.chaosthedude.realistictorches.platform.Services;
 import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
+import com.chaosthedude.realistictorches.worldgen.TorchReplacementModifier;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.level.ChunkEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -32,7 +42,7 @@ public class RealisticTorchesForge {
         ConfigHandlerForge.loadConfig(ConfigHandlerForge.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("realistictorches-common.toml"));
 
         IEventBus eventBus = ctx.getModEventBus();
-
+        Services.PLATFORM.getBiomeModifierHelper().replaceTorchInStructures();
         // Register all registries to event bus
         RealisticTorchesRegistry.registerAll(eventBus);
 

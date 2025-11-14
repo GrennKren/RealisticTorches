@@ -14,4 +14,6 @@ public interface IBiomeModifierHelper {
      * This should be called during mod initialization
      */
     void registerTorchBiomeModifications();
+    void replaceTorchInStructures();
+
 }

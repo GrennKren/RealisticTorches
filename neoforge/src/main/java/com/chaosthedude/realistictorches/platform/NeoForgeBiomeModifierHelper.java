@@ -22,4 +22,9 @@ public class NeoForgeBiomeModifierHelper implements IBiomeModifierHelper {
         // The TorchBiomeModifier class and its codec are already registered
         // in RealisticTorchesRegistry.BIOME_MODIFIER_SERIALIZERS (for Forge/NeoForge)
     }
+
+    @Override
+    public void replaceTorchInStructures() {
+
+    }
 }

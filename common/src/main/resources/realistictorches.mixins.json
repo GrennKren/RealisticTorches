@@ -4,7 +4,9 @@
   "package": "com.chaosthedude.realistictorches.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
+  "mixins": [
+    "MixinStructureTemplate"
+  ],
   "client": [
     "MixinMinecraft"
   ],
