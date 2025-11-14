@@ -18,7 +18,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchBlock;
@@ -123,6 +125,20 @@ public class RealisticTorchBlock extends TorchBlock {
         builder.add(BURNTIME);
         builder.add(LITSTATE);
     }
+
+    @Override
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+        boolean lit = state.getValue(RealisticTorchBlock.getLitState()) == LIT;
+
+        if (!lit ) {
+            // return unlit torch item
+            return new ItemStack(RealisticTorchesRegistry.UNLIT_TORCH_ITEM.get());
+        }
+
+        // return lit torch item
+        return new ItemStack(RealisticTorchesRegistry.LIT_TORCH_ITEM.get());
+    }
+
 
     public static IntegerProperty getBurnTime() {
         return BURNTIME;
