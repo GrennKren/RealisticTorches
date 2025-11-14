@@ -1,7 +1,5 @@
 package com.chaosthedude.realistictorches;
 
-import com.chaosthedude.realistictorches.config.ConfigHandlerFabric;
-import com.chaosthedude.realistictorches.platform.Services;
 import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -9,11 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
 public class RealisticTorchesFabric implements ModInitializer {

@@ -1,7 +1,6 @@
 package com.chaosthedude.realistictorches;
 
 import com.chaosthedude.realistictorches.platform.Services;
-import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
 
 public class RealisticTorches {
 
@@ -13,8 +12,5 @@ public class RealisticTorches {
                 Services.PLATFORM.getPlatformName(),
                 Services.PLATFORM.getEnvironmentName()
         );
-
-        // Initialize registries
-        RealisticTorchesRegistry.init();
     }
 }

@@ -18,13 +18,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 public class FabricBiomeModifierHelper implements IBiomeModifierHelper {
 
     @Override
-    public void registerTorchBiomeModifications() {
-        Constants.LOGGER.info("Registering Fabric biome modifications for torches");
-
-        Constants.LOGGER.info("Fabric biome modifications registered successfully");
-    }
-
-    @Override
     public void replaceTorchInStructures() {
 
     }
