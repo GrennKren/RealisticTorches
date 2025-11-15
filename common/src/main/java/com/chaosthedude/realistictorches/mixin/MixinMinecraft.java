@@ -1,7 +1,5 @@
 package com.chaosthedude.realistictorches.mixin;
 
-import com.chaosthedude.realistictorches.Constants;
-import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -75,11 +75,4 @@ public interface IPlatformHelper {
      */
     void registerAll(Object eventBus);
 
-    /**
-     * Get the biome modifier helper for this platform
-     *
-     * @return The biome modifier helper
-     */
-    IBiomeModifierHelper getBiomeModifierHelper();
-
 }

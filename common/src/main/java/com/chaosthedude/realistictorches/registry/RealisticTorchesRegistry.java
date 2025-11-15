@@ -75,11 +75,8 @@ public class RealisticTorchesRegistry {
     );
 
 
-    /**
-     * Register all to event bus (Forge/NeoForge specific)
-     */
-    public static void registerAll(Object eventBus) {
-        Services.PLATFORM.registerAll(eventBus);
+    public static void init() {
+
     }
 
 }

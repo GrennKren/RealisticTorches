@@ -1,6 +1,7 @@
 package com.chaosthedude.realistictorches;
 
 import com.chaosthedude.realistictorches.config.ConfigHandlerNeoForge;
+import com.chaosthedude.realistictorches.platform.Services;
 import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
@@ -18,8 +19,10 @@ public class RealisticTorchesNeoForge {
         modContainer.registerConfig(ModConfig.Type.COMMON, ConfigHandlerNeoForge.COMMON_CONFIG);
         //ConfigHandlerNeoForge.loadConfig(ConfigHandlerNeoForge.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("realistictorches-common.toml"));
 
+        RealisticTorchesRegistry.init();
+
         // Register all registries to event bus
-        RealisticTorchesRegistry.registerAll(eventBus);
+        Services.PLATFORM.registerAll(eventBus);
 
         eventBus.addListener(this::buildCreativeTabContents);
     }

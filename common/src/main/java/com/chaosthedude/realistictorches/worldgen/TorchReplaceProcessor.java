@@ -45,6 +45,9 @@ public class TorchReplaceProcessor extends StructureProcessor {
                     .setValue(RealisticTorchBlock.getLitState(), RealisticTorchBlock.LIT)
                     .setValue(RealisticTorchBlock.getBurnTime(), RealisticTorchBlock.getInitialBurnTime());
 
+            //TorchTickScheduler.PENDING_TORCHES.add(blockWorldPos.immutable());
+            TorchTickScheduler.PENDING_TORCHES.add(currentBlockInfo.pos());
+
             return new StructureTemplate.StructureBlockInfo(
                     currentBlockInfo.pos(),
                     newState,
@@ -58,6 +61,9 @@ public class TorchReplaceProcessor extends StructureProcessor {
                     .setValue(RealisticWallTorchBlock.getLitState(), RealisticWallTorchBlock.LIT)
                     .setValue(RealisticWallTorchBlock.getBurnTime(), RealisticWallTorchBlock.getInitialBurnTime())
                     .setValue(RealisticWallTorchBlock.HORIZONTAL_FACING, state.getValue(BlockStateProperties.HORIZONTAL_FACING));
+
+            //TorchTickScheduler.PENDING_TORCHES.add(blockWorldPos.immutable());
+            TorchTickScheduler.PENDING_TORCHES.add(currentBlockInfo.pos());
 
             return new StructureTemplate.StructureBlockInfo(
                     currentBlockInfo.pos(),

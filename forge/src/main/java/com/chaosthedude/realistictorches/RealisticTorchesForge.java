@@ -18,16 +18,15 @@ public class RealisticTorchesForge {
     public RealisticTorchesForge(FMLJavaModLoadingContext ctx) {
         // Register config
         ctx.registerConfig(ModConfig.Type.COMMON, ConfigHandlerForge.COMMON_CONFIG);
-        ConfigHandlerForge.loadConfig(ConfigHandlerForge.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("realistictorches-common.toml"));
+        //ConfigHandlerForge.loadConfig(ConfigHandlerForge.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("realistictorches-common.toml"));
 
-        Services.PLATFORM.getBiomeModifierHelper().replaceTorchInStructures();
+        RealisticTorchesRegistry.init();
 
         // Register all registries to event bus
         IEventBus eventBus = ctx.getModEventBus();
-        RealisticTorchesRegistry.registerAll(eventBus);
+        Services.PLATFORM.registerAll(eventBus);
 
         eventBus.addListener(this::buildCreativeTabContents);
-
     }
 
     private void buildCreativeTabContents(BuildCreativeModeTabContentsEvent event) {

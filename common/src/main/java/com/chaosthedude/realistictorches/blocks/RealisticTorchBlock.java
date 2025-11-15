@@ -18,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -44,7 +43,7 @@ public class RealisticTorchBlock extends TorchBlock {
     public static final int UNLIT = 0;
 
     public RealisticTorchBlock() {
-        super(ParticleTypes.FLAME, Block.Properties.ofFullCopy(Blocks.TORCH).lightLevel(getLightValueFromState()));
+        super(ParticleTypes.FLAME, Block.Properties.ofFullCopy(Blocks.TORCH).lightLevel(getLightValueFromState()).randomTicks());
         registerDefaultState(stateDefinition.any().setValue(LITSTATE, 0).setValue(BURNTIME, 0));
     }
 
@@ -85,11 +84,6 @@ public class RealisticTorchBlock extends TorchBlock {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!level.isClientSide() && SHOULD_BURN_OUT && state.getValue(LITSTATE) > UNLIT) {
-            if (level.isRainingAt(pos)) {
-                playExtinguishSound(level, pos);
-                changeToUnlit(level, pos, state);
-                return;
-            }
             int newBurnTime = state.getValue(BURNTIME) - 1;
             if (newBurnTime <= 0) {
                 playExtinguishSound(level, pos);
@@ -101,6 +95,16 @@ public class RealisticTorchBlock extends TorchBlock {
             } else {
                 level.setBlock(pos, state.setValue(BURNTIME, newBurnTime), 2);
                 level.scheduleTick(pos, this, TICK_INTERVAL);
+            }
+        }
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (level.isRainingAt(pos) && state.getValue(LITSTATE) > UNLIT) {
+            if (random.nextFloat() < 0.3f) { // 30% chance to extinguish in rain
+                playExtinguishSound(level, pos);
+                changeToUnlit(level, pos, state);
             }
         }
     }

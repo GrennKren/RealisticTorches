@@ -1,7 +1,6 @@
 package com.chaosthedude.realistictorches.platform;
 
 import com.chaosthedude.realistictorches.Constants;
-import com.chaosthedude.realistictorches.platform.services.IBiomeModifierHelper;
 import com.chaosthedude.realistictorches.platform.services.IPlatformHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +20,6 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(Constants.MOD_ID);
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(Constants.MOD_ID);
     private static final Map<ResourceKey<?>, DeferredRegister<?>> REGISTRIES = new HashMap<>();
-    private final IBiomeModifierHelper biomeModifierHelper = new NeoForgeBiomeModifierHelper();
 
     @Override
     public String getPlatformName() {
@@ -66,11 +64,4 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
             REGISTRIES.values().forEach(register -> register.register(bus));
         }
     }
-
-    @Override
-    public IBiomeModifierHelper getBiomeModifierHelper() {
-        return biomeModifierHelper;
-    }
-
-
 }

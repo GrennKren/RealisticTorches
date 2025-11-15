@@ -10,7 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
-public class RealisticTorchesFabric implements ModInitializer {
+public class
+RealisticTorchesFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
@@ -19,8 +20,6 @@ public class RealisticTorchesFabric implements ModInitializer {
         // Load config for Fabric
         //ConfigHandlerFabric.loadConfig();
 
-        // Initialize common code
-        RealisticTorches.init();
         // Set render layers for blocks (client-side only)
         setupBlockRenderLayers();
 
@@ -95,6 +94,4 @@ public class RealisticTorchesFabric implements ModInitializer {
             ));
         });
     }
-
-
 }

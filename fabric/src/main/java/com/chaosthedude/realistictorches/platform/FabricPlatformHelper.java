@@ -1,7 +1,6 @@
 package com.chaosthedude.realistictorches.platform;
 
 import com.chaosthedude.realistictorches.Constants;
-import com.chaosthedude.realistictorches.platform.services.IBiomeModifierHelper;
 import com.chaosthedude.realistictorches.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
@@ -14,8 +13,6 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 public class FabricPlatformHelper implements IPlatformHelper {
-
-    private final IBiomeModifierHelper biomeModifierHelper = new FabricBiomeModifierHelper();
 
     @Override
     public String getPlatformName() {
@@ -72,10 +69,4 @@ public class FabricPlatformHelper implements IPlatformHelper {
     public void registerAll(Object eventBus) {
         // No-op on Fabric, registration happens immediately
     }
-
-    @Override
-    public IBiomeModifierHelper getBiomeModifierHelper() {
-        return biomeModifierHelper;
-    }
-
 }

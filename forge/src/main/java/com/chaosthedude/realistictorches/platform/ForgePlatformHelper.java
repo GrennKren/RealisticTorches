@@ -1,16 +1,11 @@
 package com.chaosthedude.realistictorches.platform;
 
 import com.chaosthedude.realistictorches.Constants;
-import com.chaosthedude.realistictorches.platform.services.IBiomeModifierHelper;
 import com.chaosthedude.realistictorches.platform.services.IPlatformHelper;
-import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -26,7 +21,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
     private static final Map<ResourceKey<?>, DeferredRegister<?>> REGISTRIES = new HashMap<>();
-    private final IBiomeModifierHelper biomeModifierHelper = new ForgeBiomeModifierHelper();
 
     @Override
     public String getPlatformName() {
@@ -73,11 +67,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
             ITEMS.register(bus);
             REGISTRIES.values().forEach(register -> register.register(bus));
         }
-    }
-
-    @Override
-    public IBiomeModifierHelper getBiomeModifierHelper() {
-        return biomeModifierHelper;
     }
 
 }
