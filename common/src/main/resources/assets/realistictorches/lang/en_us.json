@@ -1,12 +1,31 @@
 {
-    "_comment": "Realistic Torches - Language File",
-    "_comment": "UNITED STATES - ENGLISH",
+  "_comment": "BLOCKS",
+  "block.realistictorches.torch": "Realistic Torch",
 
-    "_comment": "BLOCKS",
-    "block.realistictorches.torch": "Realistic Torch",
+  "_comment": "ITEMS",
+  "item.realistictorches.matchbox": "Matchbox",
+  "item.realistictorches.glowstone_crystal": "Glowstone Crystal",
+  "item.realistictorches.glowstone_paste": "Glowstone Paste",
 
-    "_comment": "ITEMS",
-    "item.realistictorches.matchbox": "Matchbox",
-    "item.realistictorches.glowstone_crystal": "Glowstone Crystal",
-    "item.realistictorches.glowstone_paste": "Glowstone Paste"
+  "_comment": "Config Menu",
+  "config.realistictorches.title": "Realistic Torches Configuration",
+  "config.realistictorches.category.general": "General Settings",
+
+  "config.realistictorches.torchBurnoutTime": "Torch Burnout Time (minutes)",
+  "config.realistictorches.torchBurnoutTime.tooltip": "Time until a torch burns out in minutes.\nSet to -1 to disable torch burnout.\n\nDefault: 60 minutes",
+
+  "config.realistictorches.matchboxDurability": "Matchbox Durability",
+  "config.realistictorches.matchboxDurability.tooltip": "The durability of the matchbox.\nSet to -1 for unlimited uses.\n\nDefault: 64 uses",
+
+  "config.realistictorches.torchNoRelight": "Torches Disappear When Extinguished",
+  "config.realistictorches.torchNoRelight.tooltip": "When enabled, lit torches disappear after\nthey are extinguished instead of turning\ninto unlit torches.\n\nDefault: Disabled",
+
+  "config.realistictorches.matchboxCreatesFire": "Matchbox Creates Fire",
+  "config.realistictorches.matchboxCreatesFire.tooltip": "When enabled, matchboxes can light fires\nin the world like flint and steel.\n\nDefault: Disabled",
+
+  "config.realistictorches.vanillaTorchesDropUnlit": "Vanilla Torches Drop Unlit",
+  "config.realistictorches.vanillaTorchesDropUnlit.tooltip": "When enabled, vanilla torches drop unlit\ntorches when broken.\n\nDefault: Enabled",
+
+  "config.realistictorches.lightTorchItems": "Items That Can Light Torches",
+  "config.realistictorches.lightTorchItems.tooltip": "List of items that can light torches,\nbesides matchbox and flint and steel.\n\nExample: minecraft:lava_bucket\n\nDefault: Empty list"
 }

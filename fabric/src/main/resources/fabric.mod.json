@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
           "com.chaosthedude.realistictorches.RealisticTorchesFabric"
+        ],
+        "modmenu": [
+           "com.chaosthedude.realistictorches.config.ModMenuIntegration"
         ]
     },
     "mixins": [
