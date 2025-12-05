@@ -1,0 +1,29 @@
+package com.chaosthedude.realistictorches.items;
+
+import com.chaosthedude.realistictorches.blocks.RealisticSoulCampfireBlock;
+import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+
+public class UnlitSoulCampfireItem extends BlockItem {
+    public static final String NAME = "unlit_soul_campfire";
+
+    public UnlitSoulCampfireItem(Block block, Properties properties) {
+        super(block, properties);
+    }
+
+    @Override
+    public BlockState getPlacementState(BlockPlaceContext context) {
+        BlockState state = super.getPlacementState(context);
+        if (state != null) {
+            return state.setValue(RealisticSoulCampfireBlock.getLitState(), RealisticSoulCampfireBlock.UNLIT)
+                    .setValue(RealisticSoulCampfireBlock.getBurnTime(), 0)
+                    .setValue(RealisticSoulCampfireBlock.getLitState(), 0)
+                    .setValue(RealisticSoulCampfireBlock.SIGNAL_FIRE, false);
+        }
+        return null;
+    }
+}

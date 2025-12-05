@@ -7,13 +7,17 @@ public class ConfigHandler {
 
     public static final String CATEGORY_GENERAL = "general";
 
-    // Config values
+    // Torch config values
     private static int torchBurnoutTimeValue = 60;
     private static int matchboxDurabilityValue = 64;
     private static boolean noRelightEnabledValue = false;
     private static boolean matchboxCreatesFireValue = false;
     private static boolean vanillaTorchesDropUnlitValue = true;
     private static List<String> lightTorchItemsValue = new ArrayList<>();
+
+    // Campfire config values
+    private static int campfireBurnoutTimeValue = 120; // 2x torch duration
+    private static boolean vanillaCampfiresDropUnlitValue = true;
 
     // Platform-specific save callback
     private static Runnable saveCallback = null;
@@ -28,7 +32,7 @@ public class ConfigHandler {
         }
     }
 
-    // Getters
+    // Torch getters
     public static int getTorchBurnoutTime() {
         return torchBurnoutTimeValue;
     }
@@ -53,7 +57,16 @@ public class ConfigHandler {
         return lightTorchItemsValue;
     }
 
-    // Setters
+    // Campfire getters
+    public static int getCampfireBurnoutTime() {
+        return campfireBurnoutTimeValue;
+    }
+
+    public static boolean isVanillaCampfiresDropUnlit() {
+        return vanillaCampfiresDropUnlitValue;
+    }
+
+    // Torch setters
     public static void setTorchBurnoutTime(int value) {
         torchBurnoutTimeValue = value;
         save();
@@ -81,6 +94,17 @@ public class ConfigHandler {
 
     public static void setLightTorchItems(List<String> value) {
         lightTorchItemsValue = new ArrayList<>(value);
+        save();
+    }
+
+    // Campfire setters
+    public static void setCampfireBurnoutTime(int value) {
+        campfireBurnoutTimeValue = value;
+        save();
+    }
+
+    public static void setVanillaCampfiresDropUnlit(boolean value) {
+        vanillaCampfiresDropUnlitValue = value;
         save();
     }
 }

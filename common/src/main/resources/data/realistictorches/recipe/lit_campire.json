@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistictorches:unlit_campfire"
+    },
+    {
+      "item": "realistictorches:matchbox"
+    }
+  ],
+  "result": {
+    "id": "realistictorches:lit_campfire"
+  }
+}

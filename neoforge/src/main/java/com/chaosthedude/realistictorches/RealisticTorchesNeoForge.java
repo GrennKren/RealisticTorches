@@ -24,6 +24,7 @@ public class RealisticTorchesNeoForge {
 
         // Register all registries to event bus
         Services.PLATFORM.registerAll(eventBus);
+        Services.PLATFORM.registerAllClient(eventBus);
 
         eventBus.addListener(this::buildCreativeTabContents);
     }

@@ -1,10 +1,16 @@
 package com.chaosthedude.realistictorches.platform.services;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface IPlatformHelper {
@@ -59,6 +65,20 @@ public interface IPlatformHelper {
     <T extends Item> Supplier<T> registerItem(String name, Supplier<T> item);
 
     /**
+     * Register a block entity type to the platform's registry
+     *
+     * @param name The registry name
+     * @param blockEntitySupplier The block entity supplier function
+     * @param validBlocks The blocks that can use this block entity type
+     * @return The registered block entity type supplier
+     */
+    <T extends BlockEntity> Supplier<BlockEntityType<T>> registerBlockEntity(
+            String name,
+            BiFunction<BlockPos, BlockState, T> blockEntitySupplier,
+            Supplier<? extends Block>... validBlocks
+    );
+
+    /**
      * Register a generic registry entry
      *
      * @param registryKey The registry key
@@ -74,5 +94,14 @@ public interface IPlatformHelper {
      * @param eventBus The mod event bus
      */
     void registerAll(Object eventBus);
+
+    /**
+     * Register all client-side renderers
+     * Each platform should subscribe to their client initialization event
+     * and call the provided registrar function
+     *
+     * @param eventBus The mod event bus (Forge/NeoForge) or null (Fabric)
+     */
+    void registerAllClient(Object eventBus);
 
 }

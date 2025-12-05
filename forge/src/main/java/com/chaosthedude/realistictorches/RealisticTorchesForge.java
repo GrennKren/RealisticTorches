@@ -28,6 +28,7 @@ public class RealisticTorchesForge {
         // Register all registries to event bus
         IEventBus eventBus = ctx.getModEventBus();
         Services.PLATFORM.registerAll(eventBus);
+        Services.PLATFORM.registerAllClient(eventBus);
 
         eventBus.addListener(this::buildCreativeTabContents);
     }

@@ -1,0 +1,26 @@
+package com.chaosthedude.realistictorches.items;
+
+import com.chaosthedude.realistictorches.blocks.RealisticSoulLanternBlock;
+import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class LitSoulLanternItem extends BlockItem {
+    public static final String NAME = "lit_soul_lantern";
+
+    public LitSoulLanternItem(Block block, Properties properties) {
+        super(block, properties);
+    }
+
+    @Override
+    public BlockState getPlacementState(BlockPlaceContext context) {
+        BlockState state = super.getPlacementState(context);
+        if (state != null) {
+            return state.setValue(RealisticSoulLanternBlock.getLitState(), RealisticSoulLanternBlock.LIT)
+                    .setValue(RealisticSoulLanternBlock.getBurnTime(), RealisticSoulLanternBlock.getInitialBurnTime());
+        }
+        return null;
+    }
+}

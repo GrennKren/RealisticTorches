@@ -1,5 +1,6 @@
 package com.chaosthedude.realistictorches;
 
+import com.chaosthedude.realistictorches.platform.FabricPlatformHelper;
 import com.chaosthedude.realistictorches.registry.RealisticTorchesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,9 +20,12 @@ RealisticTorchesFabric implements ModInitializer {
 
         // Load config for Fabric
         //ConfigHandlerFabric.loadConfig();
-
+        //RealisticTorchesRegistry.init();
         // Set render layers for blocks (client-side only)
         setupBlockRenderLayers();
+
+        FabricPlatformHelper platformHelper = new FabricPlatformHelper();
+        platformHelper.registerAllClient(null);
 
         // Register items to vanilla creative tabs
         registerCreativeTabs();
@@ -44,6 +48,11 @@ RealisticTorchesFabric implements ModInitializer {
 
             BlockRenderLayerMap.INSTANCE.putBlock(
                     RealisticTorchesRegistry.TORCH_WALL_BLOCK.get(),
+                    RenderType.cutout()
+            );
+
+            BlockRenderLayerMap.INSTANCE.putBlock(
+                    RealisticTorchesRegistry.CAMPFIRE_BLOCK.get(),
                     RenderType.cutout()
             );
 

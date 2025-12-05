@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_campfire",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "fire": "realistictorches:block/campfire_fire_smoldering",
+    "lit_log": "realistictorches:block/campfire_log_smoldering",
+    "particle": "realistictorches:block/campfire_log_smoldering"
+  }
+}
