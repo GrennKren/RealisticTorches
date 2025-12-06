@@ -14,6 +14,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
+import java.util.Random;
+
 /**
  * Structure processor that replaces vanilla torches with realistic torches
  * during world generation (villages, mineshafts, etc.)
@@ -21,8 +23,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 public class TorchReplaceProcessor extends StructureProcessor {
 
     public static final TorchReplaceProcessor INSTANCE = new TorchReplaceProcessor();
-
     public static final MapCodec<TorchReplaceProcessor> CODEC = MapCodec.unit(INSTANCE);
+
+    private static final ThreadLocal<Random> RANDOM = ThreadLocal.withInitial(Random::new);
 
     private TorchReplaceProcessor() {
         // Private constructor - use INSTANCE
@@ -38,15 +41,21 @@ public class TorchReplaceProcessor extends StructureProcessor {
             StructurePlaceSettings settings
     ) {
         BlockState state = currentBlockInfo.state();
+        Random rand = RANDOM.get();
 
         // Replace vanilla torch with realistic torch (standing)
         if (state.is(Blocks.TORCH)) {
+
+            int maxBurnTime = RealisticTorchBlock.getInitialBurnTime();
+            int minBurnTime = (maxBurnTime * 40) / 100; // 40% - 100%
+            int randomBurnTime = maxBurnTime > 0 ? minBurnTime + rand.nextInt(maxBurnTime - minBurnTime + 1) : 0;
+
             BlockState newState = RealisticTorchesRegistry.TORCH_BLOCK.get().defaultBlockState()
                     .setValue(RealisticTorchBlock.getLitState(), RealisticTorchBlock.LIT)
-                    .setValue(RealisticTorchBlock.getBurnTime(), RealisticTorchBlock.getInitialBurnTime());
+                    .setValue(RealisticTorchBlock.getBurnTime(), randomBurnTime);
 
-            //TorchTickScheduler.PENDING_TORCHES.add(blockWorldPos.immutable());
-            TorchTickScheduler.PENDING_TORCHES.add(currentBlockInfo.pos());
+            int delay = 20 + rand.nextInt(120);
+            TorchTickScheduler.addTorch(currentBlockInfo.pos(), delay, randomBurnTime);
 
             return new StructureTemplate.StructureBlockInfo(
                     currentBlockInfo.pos(),
@@ -57,13 +66,18 @@ public class TorchReplaceProcessor extends StructureProcessor {
 
         // Replace vanilla wall torch with realistic wall torch
         if (state.is(Blocks.WALL_TORCH)) {
+            
+            int maxBurnTime = RealisticWallTorchBlock.getInitialBurnTime();
+            int minBurnTime = (maxBurnTime * 40) / 100; // 40% - 100%
+            int randomBurnTime = maxBurnTime > 0 ? minBurnTime + rand.nextInt(maxBurnTime - minBurnTime + 1) : 0;
+
             BlockState newState = RealisticTorchesRegistry.TORCH_WALL_BLOCK.get().defaultBlockState()
                     .setValue(RealisticWallTorchBlock.getLitState(), RealisticWallTorchBlock.LIT)
-                    .setValue(RealisticWallTorchBlock.getBurnTime(), RealisticWallTorchBlock.getInitialBurnTime())
+                    .setValue(RealisticWallTorchBlock.getBurnTime(), randomBurnTime)
                     .setValue(RealisticWallTorchBlock.HORIZONTAL_FACING, state.getValue(BlockStateProperties.HORIZONTAL_FACING));
 
-            //TorchTickScheduler.PENDING_TORCHES.add(blockWorldPos.immutable());
-            TorchTickScheduler.PENDING_TORCHES.add(currentBlockInfo.pos());
+            int delay = 20 + rand.nextInt(120);
+            TorchTickScheduler.addTorch(currentBlockInfo.pos(), delay, randomBurnTime);
 
             return new StructureTemplate.StructureBlockInfo(
                     currentBlockInfo.pos(),
@@ -72,8 +86,6 @@ public class TorchReplaceProcessor extends StructureProcessor {
             );
         }
 
-
-        // Return unchanged block if not a torch
         return currentBlockInfo;
     }
 

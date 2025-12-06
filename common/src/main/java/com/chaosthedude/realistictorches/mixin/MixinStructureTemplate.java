@@ -17,9 +17,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @Mixin(StructureTemplate.class)
 public abstract class MixinStructureTemplate {
@@ -58,28 +57,41 @@ public abstract class MixinStructureTemplate {
         return newSettings;
     }
 
+    /**
+     * Schedule ticks for all pending torches after structure placement
+     */
     @Inject(
             method = "placeInWorld",
-            at = @At("TAIL")
+            at = @At("RETURN")
     )
     private void realistictorches$afterPlaceInWorld(
-            ServerLevelAccessor serverLevel, BlockPos offset, BlockPos pos, StructurePlaceSettings settings, RandomSource random, int flags, CallbackInfoReturnable<Boolean> cir
+            ServerLevelAccessor serverLevel,
+            BlockPos offset,
+            BlockPos pos,
+            StructurePlaceSettings settings,
+            RandomSource random,
+            int flags,
+            CallbackInfoReturnable<Boolean> cir
     ) {
         if (TorchTickScheduler.PENDING_TORCHES.isEmpty()) {
             return;
         }
 
-        Set<BlockPos> pending = new HashSet<>(TorchTickScheduler.PENDING_TORCHES);
-        TorchTickScheduler.PENDING_TORCHES.clear();
+        Map<BlockPos, TorchTickScheduler.TorchData> pending = Map.copyOf(TorchTickScheduler.PENDING_TORCHES);
+        TorchTickScheduler.clear();
 
-        for (BlockPos torchPos : pending) {
+        for (Map.Entry<BlockPos, TorchTickScheduler.TorchData> entry : pending.entrySet()) {
+            BlockPos torchPos = entry.getKey();
+            TorchTickScheduler.TorchData data = entry.getValue();
+
             BlockState state = serverLevel.getBlockState(torchPos);
 
             if (state.is(RealisticTorchesRegistry.TORCH_BLOCK.get()) ||
                     state.is(RealisticTorchesRegistry.TORCH_WALL_BLOCK.get())) {
 
-                int delay = 20 + serverLevel.getRandom().nextInt(2381); // random 1–10 detik
-                serverLevel.scheduleTick(torchPos, state.getBlock(), delay);
+                // Schedule with the pre-calculated delay
+                serverLevel.scheduleTick(torchPos, state.getBlock(), data.delay);
+                
             }
         }
     }

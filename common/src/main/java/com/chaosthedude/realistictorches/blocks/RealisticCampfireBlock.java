@@ -134,14 +134,15 @@ public class RealisticCampfireBlock extends CampfireBlock {
         LevelAccessor level = context.getLevel();
         BlockPos pos = context.getClickedPos();
 
-        boolean waterlogged = level.getFluidState(pos).getType() == Fluids.WATER;
-        boolean lit = !waterlogged;
+        boolean lit = !(level.getFluidState(pos).getType() == Fluids.WATER);
 
         return this.defaultBlockState()
-                .setValue(WATERLOGGED, waterlogged)
+                .setValue(WATERLOGGED, !lit)
                 .setValue(SIGNAL_FIRE, this.isSmokeSource(level.getBlockState(pos.below())))
                 .setValue(LIT, lit)
-                .setValue(FACING, context.getHorizontalDirection());
+                .setValue(FACING, context.getHorizontalDirection())
+                .setValue(LITSTATE, lit ? LIT_STATE : UNLIT_STATE)
+                .setValue(BURNTIME, lit ? getInitialBurnTime() : 0);
     }
 
     @Override
